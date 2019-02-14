@@ -32,8 +32,8 @@ print("Song length in minutes: \(songLengthInMinutes) m")
 print("Song writer: \(songIsWrittenBy)")
 print("Band members: \(bandMembers.0), \(bandMembers.1), \(bandMembers.2), \(bandMembers.3)")
 print("Genres: \(genres.0), \(genres.1), \(genres.2)")
-// We are allowed to force unwrap because we know that we explictly set the date
 print("Song description: \(songDescription)")
+// We are allowed to force unwrap because we know that we explictly set the date
 print("Song is released on: \(formatter.string(from: releaseDate!))")
 print("Song is released in year: \(releaseYear)")
 
