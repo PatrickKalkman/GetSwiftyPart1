@@ -9,7 +9,7 @@
 
 Q1: What are the differences between a tuple and an array? 
  
-A tuple is a fixed group of values represented as a single value. The number and type of values that a tuple holds are defined up-front. An array is a dynamic list of values which can grow and shrink during run-time. The type of values an array can hold is defined up-front.   
+A tuple is a fixed group of values represented as a single value. The number and type of values that a tuple holds are defined up-front. An array is a dynamic list of values which can grow and shrink during run-time. The type of values an array can hold is defined up-front.
 
 Q2: What are typical use cases for a tuple and for an array?
 
@@ -23,7 +23,7 @@ Array use-case:
 
 Q3: What are ranges? And why would you use one instead of an array or tuple? 
 
-A range is a set of predefined values, in which you specify the start and end of the interval of values. A closed range includes both the beginning and the end. A half-open range means that the end is not part of the range. I will use a range if I want to iterate over a set of values using a for-loop. 
+A range is a set of predefined values in which you specify the start and end of an interval of values. A closed range includes both the beginning and the end. A half-open range means that the end is not part of the range. I will use a range if I want to iterate over a set of values using a for-loop.
 */
 
 // ---- Use case tuple T1: 
@@ -53,7 +53,7 @@ var httpStatusBadRequest: (code: Int, description: String) = (400, "Bad Request"
 var httpStatusInternalServerError: (code: Int, description: String) = (500, "Internal Server Error")
 
 // --- Use case array A1:
-// An array of employees constructed using the employee name tuples
+// Create an array of tuples using the employee name tuple.
 var employees : [(firstName: String, lastName: String)] = [employeePatrick, employeeJessica]
 // Dynamically add a new employee name to the array
 employees.append(("Frits", "Dregen"))
