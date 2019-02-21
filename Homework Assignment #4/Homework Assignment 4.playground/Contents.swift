@@ -40,6 +40,12 @@ timeAdder(20,"hours",5,"hours")
 You would return (25,"hours") because you could not use "days" with an integer value to represent 25 hours.
 */
 
+// Constants for converting time
+let numberOfSecondsPerMinute : UInt = 60
+let numberOfSecondsPerHour : UInt = 60 * numberOfSecondsPerMinute
+let numberOfSecondsPerDay: UInt = 24 * numberOfSecondsPerHour
+
+// This function validates the given time value and label combination
 func isValidTimeValueTimeLabelCombination(_ timeValue: UInt, _ timeLabel: String) -> Bool
 {
     // Valid labels are: "seconds", "minutes", "hours", "days", "second", "minute", "hour", "day"
@@ -48,14 +54,14 @@ func isValidTimeValueTimeLabelCombination(_ timeValue: UInt, _ timeLabel: String
         if (timeValue > 1) {
            return true
         } else {
-           print("The time value should be more than 1 when using plural time labels")           
+           print("The time value should be more than 1 when using a plural time labels")
            return false
         }
     case "second", "minute", "hour", "day":
         if (timeValue == 1) {
             return true
         } else {
-           print("The time value should be 1 when using singular time labels")
+           print("The time value should be 1 when using a singular time label")
            return false
         }
     default:
@@ -64,6 +70,7 @@ func isValidTimeValueTimeLabelCombination(_ timeValue: UInt, _ timeLabel: String
     }    
 }
 
+// This function converts the given time value label combination into seconds
 func convertToSeconds(_ timeValue: UInt, _ timeLabel: String) -> UInt 
 {
     // Valid labels are: "seconds", "minutes", "hours", "days", "second", "minute", "hour", "day"
@@ -71,63 +78,95 @@ func convertToSeconds(_ timeValue: UInt, _ timeLabel: String) -> UInt
     case "seconds", "second":
         return timeValue
     case "minutes", "minute":
-        return timeValue * 60
+        return timeValue * numberOfSecondsPerMinute
     case "hours", "hour":
-        return timeValue * 60 * 60
+        return timeValue * numberOfSecondsPerHour
     case "days", "day": 
-        return timeValue * 60 * 60 * 24
+        return timeValue * numberOfSecondsPerDay
     default:
         // This should never happen as we validate the time value label combination up front
         fatalError("The timeLabel: \(timeLabel) is not a valid time label")
     }
 }
 
+// This function generates the biggest time label combination that is possible with whole numbers
 func generateLargestTimeValueLabelCombination(_ timeInSeconds: UInt) -> (timeValue: UInt, timeLabel: String)
 {
-   // First we try to convert to days
-   if (timeInSeconds % (60 * 60 * 24) == 0)
+   // First we try to convert the seconds to whole days
+   if (timeInSeconds % numberOfSecondsPerDay == 0)
    {
-      let days : UInt = UInt(timeInSeconds / (60 * 60 * 24))
+      let days : UInt = UInt(timeInSeconds / numberOfSecondsPerDay)
       if (days > 1) {
          return (timeValue: days, "days")
       }
       return (timeValue: days, "day")
-   } else if (timeInSeconds % (60 * 60) == 0) {
-      let hours : UInt = UInt(timeInSeconds / (60 * 60))
+   // otherwise we check if can convert into whole hours
+   } else if (timeInSeconds % numberOfSecondsPerHour == 0) {
+      let hours : UInt = UInt(timeInSeconds / numberOfSecondsPerHour)
       if (hours > 1) {
          return (timeValue: hours, "hours")
       }
       return (timeValue: hours, "hour")
-   } else if (timeInSeconds % 60 == 0) {
-      let minutes: UInt = UInt(timeInSeconds / 60)
+   // otherwise we try to convert it to whole minutes
+   } else if (timeInSeconds % numberOfSecondsPerMinute == 0) {
+      let minutes: UInt = UInt(timeInSeconds / numberOfSecondsPerMinute)
       if (minutes > 1) {
          return (timeValue: minutes, "minutes")
       }
       return (timeValue: minutes, "minute")
    } else {
-      return (timeValue: timeInSeconds, "seconds")
+   // If all fails we return the time value in seconds
+    if (timeInSeconds > 1) {
+        return (timeValue: timeInSeconds, "seconds")
+    } else {
+        return (timeValue: timeInSeconds, "second")
+    }
    }
 }
 
-func timeAdder(_ firstTimeValue: UInt, _ firstTimeLabel: String, _ secondTimeValue: UInt, _ secondTimeLabel: String) -> Any  
+// This function adds two time values with a different time label and returns the total in the largest possible time label that
+// can be expressed in whole numbers.
+func timeAdder(_ firstTimeValue: UInt, _ firstTimeLabel: String, _ secondTimeValue: UInt, _ secondTimeLabel: String) -> (timeValue: UInt, timeLabel: String)
 {
+    // Check if the given time value and labels are valid
     if (isValidTimeValueTimeLabelCombination(firstTimeValue, firstTimeLabel) && 
-        isValidTimeValueTimeLabelCombination(secondTimeValue, secondTimeLabel)) {
+         isValidTimeValueTimeLabelCombination(secondTimeValue, secondTimeLabel)) {
 
+        // Convert both time values to seconds
         let firstTimeValueInSeconds = convertToSeconds(firstTimeValue, firstTimeLabel)
         let secondTimeValueInSeconds = convertToSeconds(secondTimeValue, secondTimeLabel)
 
+        // Calculcate the total time in seconds
         let totalTimeInSeconds = firstTimeValueInSeconds + secondTimeValueInSeconds;
 
+        // Try to express the total time in the largest whole number time label combination
         return generateLargestTimeValueLabelCombination(totalTimeInSeconds)
     }
 
-    return false
+    // Instead of false as stated in the requirements we return an invalid tuple otherwise we would have to use Any as a return type
+    // and it should be cast to a tuple to perform validation which is considered not a good practice.
+    return (0, "invalid")
 }
 
-print(timeAdder(60 * 24, "minutes",  60 * 24 * 60, "seconds"))
-print(timeAdder(1,"minute",3,"minutes"))
-print(timeAdder(5,"days",25,"hours"))
-print(timeAdder(1,"minute",240,"seconds"))
-print(timeAdder(20,"hours",4,"hours"))
+// Test the requirements
+
+// Valid time additions
+print("timeAdder(60 * 24, \"minutes\",  60 * 24 * 60, \"seconds\") should return (2, \"days\") is",
+        timeAdder(60 * 24, "minutes",  60 * 24 * 60, "seconds") == (2, "days"))
+print("timeAdder(1, \"minute\", 3, \"minutes\") should return (4, \"minutes\") is",
+        timeAdder(1,"minute",3,"minutes") == (4, "minutes"))
+print("timeAdder(5, \"days\", 25, \"hours\")) should return (145, \"hours\") is",
+        timeAdder(5, "days", 25, "hours") == (145, "hours"))
+print("timeAdder(1, \"minute\", 240, \"seconds\") should return (5, \"minutes\") is",
+        timeAdder(1, "minute", 240, "seconds") == (5, "minutes"))
+print("timeAdder(20, \"hours\", 4, \"hours\") == (1, \"day\") is",
+        timeAdder(20, "hours", 4, "hours") == (1, "day"))
+
+// Invalid time additions
+print("timeAdder(5, \"hour\", 5, \"minutes\") == (0, \"invalid\") is",
+      timeAdder(5, "hour", 5, "minutes") == (0, "invalid"))
+print("timeAdder(5, \"invalidlabel\", 5, \"minutes\") == (0, \"invalid\") is",
+      timeAdder(5, "invalidlabel", 5, "minutes") == (0, "invalid"))
+// timeAdder(false,false,5,"minutes") handled by the compiler as the input types are specified as UInt and String
+// timeAdder({},"days",5,"minutes") handled by the compiler as the input types are specified as UInt and String
 
