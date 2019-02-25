@@ -1,5 +1,5 @@
 /*
-   Get Swifty Part 1 (Functions)
+   Get Swifty Part 1 (Classes, Structs, and Enums)
    Homework assignment #5 for the course Get Swifty - Part 1 on https://pirple.thinkfic.com
    Patrick Kalkman
    patrick@simpletechture.nl
