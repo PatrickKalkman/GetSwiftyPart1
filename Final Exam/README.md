@@ -12,3 +12,14 @@ Turning it In:
 One of the first slides in this course is called "How to Turn in Homework" review that slide for details on how to send your assignment to us (and receive a grade).
 
 And that's it! You're done. When we see this post come through, we'll look back over all your other homework submissions, and give you feedback on anything that needs work. If everything looks like, we'll create a completion certificate for you, and send it your way.
+
+https://swiftlang.eu/community/5049-create-an-object-within-array/0#p5070
+
+https://swiftlang.eu/community/5064-variable-not-printing-in-x-code-version-9-2/0#p5085
+
+https://swiftlang.eu/community/5020-access-to-variables-from-a-target-in-swift/0#p5036
+
+https://swiftlang.eu/community/5062-swift-software-on-other-platforms/0#p5083
+
+https://stackoverflow.com/questions/24115141/converting-string-to-int-with-swift/54948062#54948062
+
