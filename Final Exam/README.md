@@ -23,3 +23,12 @@ https://swiftlang.eu/community/5062-swift-software-on-other-platforms/0#p5083
 
 https://stackoverflow.com/questions/24115141/converting-string-to-int-with-swift/54948062#54948062
 
+https://swiftlang.eu/community/5059-i-need-help-with-learning-something-about-the-language
+
+https://swiftlang.eu/community/5016-load-image-from-url
+
+https://swiftlang.eu/community/5034-uiview-text-showing-up-as-nil/0#p5051
+
+
+
+
