@@ -29,6 +29,11 @@ https://swiftlang.eu/community/5016-load-image-from-url
 
 https://swiftlang.eu/community/5034-uiview-text-showing-up-as-nil/0#p5051
 
+https://swiftlang.eu/community/5061-multi-buttons-to-url-videos
+
+https://swiftlang.eu/community/5068-indexing-and-searching-within-app-using-swift-3
+
+
 
 
 
